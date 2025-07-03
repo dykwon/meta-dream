@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Doo-young Kwon Portfolio</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background: #fff;
+        color: #111;
+        overflow-x: hidden;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 2.5em;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 40px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .card {
+        background: #f8f8f8;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      }
+      .card-image {
+        width: 100%;
+        height: 160px;
+        background-size: cover;
+        background-position: center;
+      }
+      .card-content {
+        padding: 20px;
+      }
+      .card-title {
+        font-size: 1.3em;
+        margin: 0 0 10px;
+      }
+      .card-desc {
+        font-size: 0.95em;
+        color: #555;
+      }
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        color: #111;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        z-index: 1000;
+        overflow-y: auto;
+      }
+      #overlay img {
+        width: 80%;
+        max-width: 800px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      }
+      #overlay h2 {
+        margin: 0 0 20px;
+        font-size: 2.2em;
+      }
+      #overlay p {
+        max-width: 800px;
+        font-size: 1.2em;
+        line-height: 1.7;
+        margin: 0;
+        text-align: center;
+      }
+      #overlay iframe {
+        width: 100%;
+        max-width: 800px;
+        height: 700px;
+        border: none;
+        margin-bottom: 20px;
+      }
+      #close-btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background: #0057FF;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background 0.3s;
+      }
+      #close-btn:hover {
+        background: #003ea1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Doo-young Kwon Portfolio</h1>
+
+    <div class="grid">
+      <div class="card" data-key="bio" data-image="image1.png">
+        <div class="card-image" style="background-image: url('image1.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Biography</div>
+          <div class="card-desc">Exploring harmony between art and technology, connecting spaces and people.</div>
+        </div>
+      </div>
+
+      <div class="card" data-key="research" data-image="image2.png">
+        <div class="card-image" style="background-image: url('image2.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Research</div>
+          <div class="card-desc">Creating dynamic, responsive digital environments bridging real and virtual worlds.</div>
+        </div>
+      </div>
+
+      <div class="card" data-key="education" data-image="image3.png">
+        <div class="card-image" style="background-image: url('image3.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Education</div>
+          <div class="card-desc">Guiding students to merge creativity with technology, fostering future creators.</div>
+        </div>
+      </div>
+
+      <div class="card" data-key="teaching" data-image="image4.png">
+        <div class="card-image" style="background-image: url('image4.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Teaching</div>
+          <div class="card-desc">Encouraging bold exploration and experimentation through innovative methods.</div>
+        </div>
+      </div>
+
+      <div class="card" data-key="computation" data-image="image5.png">
+        <div class="card-image" style="background-image: url('image5.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Computation</div>
+          <div class="card-desc">Blending algorithms and art into expressive, generative, and improvisational forms.</div>
+        </div>
+      </div>
+
+      <div class="card" data-key="contact" data-image="image6.png">
+        <div class="card-image" style="background-image: url('image6.png');"></div>
+        <div class="card-content">
+          <div class="card-title">Contact</div>
+          <div class="card-desc">Collaborations and ideas that connect across art, tech, and human experience.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="overlay">
+      <img id="overlay-image" src="" alt="Detail image">
+      <h2 id="overlay-title"></h2>
+      <p id="overlay-text"></p>
+      <iframe id="overlay-form" style="display: none;"></iframe>
+      <button id="close-btn">Close</button>
+    </div>
+
+    <script>
+      const details = {
+        bio: "I am an artist, researcher, and educator who deeply believes in the synergy between art and technology. My work explores the poetic harmony between physical and digital worlds. I create spaces and stories that resonate beyond screens, connecting people, nature, and imagination. Creativity is not about perfection; it's about courage to explore unknown paths and share authentic experiences with the world.",
+        research: "My research bridges virtual and physical spaces using generative systems, AI, and immersive design. I create dynamic environments that evolve with human interaction and emotion. Projects include metaverse design, interactive AI performers, and responsive digital spaces. My goal is to craft experiences that feel alive, inspiring people to imagine and connect in new ways.",
+        education: "Educated in architecture and computer science, I hold a Ph.D. from ETH Zurich, a master’s from University of Washington, and a bachelor’s from Ajou University. As a professor at SMIT, I guide students to blend art and technology, fostering dreams into tangible creations. For me, education is empowering individuals to express their unique visions freely and boldly.",
+        teaching: "Teaching is an invitation to imagine new futures. I encourage students to see technology as a creative partner, not just a tool. Through hands-on projects in XR, generative design, and virtual worlds, students learn to question, experiment, and innovate. My DTDT (Dream-Theory-Design-Tool) method helps transform ideas into real, meaningful works.",
+        computation: "Creative computation combines logic and art into a dance of infinite possibilities. My projects span from generative systems inspired by DNA to AI-driven improvisational performances. Algorithms become co-creators, pushing me to embrace surprise and co-design with technology. It's a continuous journey of redefining expression and forging deeper connections with audiences.",
+        contact: "I welcome collaborations that challenge norms and inspire creativity. Whether discussing art, tech, or life, every conversation is a chance to discover something new. Reach out at dykwon@icloud.com or call 010-5003-5141. Let's create experiences that bridge reality and imagination, and shape meaningful moments together."
+      };
+
+      const cards = document.querySelectorAll('.card');
+      const overlay = document.getElementById('overlay');
+      const overlayTitle = document.getElementById('overlay-title');
+      const overlayText = document.getElementById('overlay-text');
+      const overlayImage = document.getElementById('overlay-image');
+      const overlayForm = document.getElementById('overlay-form');
+      const closeBtn = document.getElementById('close-btn');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const key = card.getAttribute('data-key');
+          const img = card.getAttribute('data-image');
+          overlayTitle.textContent = card.querySelector('.card-title').textContent;
+          overlayImage.src = img;
+
+          if (key === 'contact') {
+            overlayText.style.display = 'none';
+            overlayForm.src = 'https://docs.google.com/forms/d/e/1FAIpQLSfZ81EpBfcgxJ0L8icMlQIoCKcwB7qCXehaVtS-q15IyJNixQ/viewform?embedded=true';
+            overlayForm.style.display = 'block';
+          } else {
+            overlayText.textContent = details[key];
+            overlayText.style.display = 'block';
+            overlayForm.style.display = 'none';
+          }
+
+          overlay.style.display = 'flex';
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        overlayForm.src = '';
+      });
+    </script>
+  </body>
+</html>
